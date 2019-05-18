@@ -2,19 +2,19 @@
 #define BASE_IMPL
 #include "BaseOverlay.h"
 #include "BaseSystem.h"
-#include "OVR_CAPI.h"
+// #include "OVR_CAPI.h"
 #include <string>
-#include "Compositor/compositor.h"
-#include "libovr_wrapper.h"
-#include "convert.h"
+// #include "Compositor/compositor.h"
+// #include "libovr_wrapper.h"
+// #include "convert.h"
 #include "BaseCompositor.h"
 #include "static_bases.gen.h"
 #include "Misc/Config.h"
 #include "Misc/ScopeGuard.h"
 
 using namespace std;
-using Vec3 = OVR::Vector3f;
-using Mat4 = OVR::Matrix4f;
+// using Vec3 = OVR::Vector3f;
+// using Mat4 = OVR::Matrix4f;
 
 // Class to represent an overlay
 class BaseOverlay::OverlayData {
@@ -38,8 +38,8 @@ public:
 
 	// Rendering
 	Texture_t texture = {};
-	ovrLayerQuad layerQuad = {};
-	std::unique_ptr<Compositor> compositor;
+	// ovrLayerQuad layerQuad = {};
+	// std::unique_ptr<Compositor> compositor;
 
 	// Transform
 	VROverlayTransformType transformType = VROverlayTransform_Absolute;
@@ -77,7 +77,7 @@ BaseOverlay::~BaseOverlay() {
 	}
 }
 
-int BaseOverlay::_BuildLayers(ovrLayerHeader_ * sceneLayer, ovrLayerHeader_ const* const*& layers) {
+/* int BaseOverlay::_BuildLayers(ovrLayerHeader_ * sceneLayer, ovrLayerHeader_ const* const*& layers) {
 	// Note that at least on MSVC, this shouldn't be doing any memory allocations
 	//  unless the list is expanding from new layers.
 	layerHeaders.clear();
@@ -151,17 +151,19 @@ done:
 	usingInput = checkUsingInput;
 	layers = layerHeaders.data();
 	return static_cast<int>(layerHeaders.size());
-}
+} */
 
 bool BaseOverlay::_HandleOverlayInput(EVREye side, TrackedDeviceIndex_t index, VRControllerState_t state) {
-	if (!usingInput)
+  STUBBED();
+  return false;
+	/* if (!usingInput)
 		return true;
 
 	if (!keyboard)
 		return true;
 
 	keyboard->HandleOverlayInput(side, state, (float)ovr_GetTimeInSeconds());
-	return false;
+	return false; */
 }
 
 EVROverlayError BaseOverlay::FindOverlay(const char *pchOverlayKey, VROverlayHandle_t * pOverlayHandle) {
@@ -174,7 +176,8 @@ EVROverlayError BaseOverlay::FindOverlay(const char *pchOverlayKey, VROverlayHan
 	return VROverlayError_InvalidParameter;
 }
 EVROverlayError BaseOverlay::CreateOverlay(const char *pchOverlayKey, const char *pchOverlayName, VROverlayHandle_t * pOverlayHandle) {
-	if (overlays.count(pchOverlayKey)) {
+  STUBBED();
+	/* if (overlays.count(pchOverlayKey)) {
 		return VROverlayError_KeyInUse;
 	}
 
@@ -202,7 +205,7 @@ EVROverlayError BaseOverlay::CreateOverlay(const char *pchOverlayKey, const char
 
 	// Contents texture starts at 0,0 - this is not overridden
 	data->layerQuad.Viewport.Pos.x = 0;
-	data->layerQuad.Viewport.Pos.y = 0;
+	data->layerQuad.Viewport.Pos.y = 0; */
 
 	return VROverlayError_None;
 }
@@ -477,14 +480,15 @@ EVROverlayError BaseOverlay::GetOverlayTransformType(VROverlayHandle_t ulOverlay
 	*peTransformType = overlay->transformType;
 }
 EVROverlayError BaseOverlay::SetOverlayTransformAbsolute(VROverlayHandle_t ulOverlayHandle, ETrackingUniverseOrigin eTrackingOrigin, const HmdMatrix34_t *pmatTrackingOriginToOverlayTransform) {
-	USEH();
+  STUBBED();
+	/* USEH();
 
 	// TODO account for the universe origin, and if it doesn't match that currently in use then add or
 	//  subtract the floor position to match it. This shouldn't usually be an issue though, as I can't
 	//  imagine many apps will use a different origin for their overlays.
 
 	overlay->transformType = VROverlayTransform_Absolute;
-	overlay->layerQuad.QuadPoseCenter = S2O_om34_pose(*pmatTrackingOriginToOverlayTransform);
+	overlay->layerQuad.QuadPoseCenter = S2O_om34_pose(*pmatTrackingOriginToOverlayTransform); */
 
 	return VROverlayError_None;
 }
@@ -607,7 +611,8 @@ EVROverlayError BaseOverlay::GetOverlayDualAnalogTransform(VROverlayHandle_t ulO
 	STUBBED();
 }
 EVROverlayError BaseOverlay::SetOverlayTexture(VROverlayHandle_t ulOverlayHandle, const Texture_t *pTexture) {
-	USEH();
+  STUBBED();
+	/* USEH();
 	overlay->texture = *pTexture;
 
 	if (!oovr_global_configuration.EnableLayers())
@@ -628,15 +633,16 @@ EVROverlayError BaseOverlay::SetOverlayTexture(VROverlayHandle_t ulOverlayHandle
 	overlay->layerQuad.Viewport.Size = overlay->compositor->GetSrcSize();
 	overlay->layerQuad.ColorTexture = overlay->compositor->GetSwapChain();
 
-	OOVR_FAILED_OVR_ABORT(ovr_CommitTextureSwapChain(*ovr::session, overlay->layerQuad.ColorTexture));
+	OOVR_FAILED_OVR_ABORT(ovr_CommitTextureSwapChain(*ovr::session, overlay->layerQuad.ColorTexture)); */
 
 	return VROverlayError_None;
 }
 EVROverlayError BaseOverlay::ClearOverlayTexture(VROverlayHandle_t ulOverlayHandle) {
-	USEH();
+  STUBBED();
+	/* USEH();
 	overlay->texture = {};
 
-	overlay->compositor.reset();
+	overlay->compositor.reset(); */
 	return VROverlayError_None;
 }
 EVROverlayError BaseOverlay::SetOverlayRaw(VROverlayHandle_t ulOverlayHandle, void *pvBuffer, uint32_t unWidth, uint32_t unHeight, uint32_t unDepth) {
@@ -677,7 +683,7 @@ void BaseOverlay::ShowDashboard(const char *pchOverlayToShow) {
 TrackedDeviceIndex_t BaseOverlay::GetPrimaryDashboardDevice() {
 	STUBBED();
 }
-EVROverlayError BaseOverlay::ShowKeyboardWithDispatch(EGamepadTextInputMode eInputMode, EGamepadTextInputLineMode eLineInputMode,
+/* EVROverlayError BaseOverlay::ShowKeyboardWithDispatch(EGamepadTextInputMode eInputMode, EGamepadTextInputLineMode eLineInputMode,
 	const char * pchDescription, uint32_t unCharMax, const char * pchExistingText, bool bUseMinimalMode, uint64_t uUserValue,
 	VRKeyboard::eventDispatch_t eventDispatch) {
 
@@ -699,34 +705,38 @@ EVROverlayError BaseOverlay::ShowKeyboardWithDispatch(EGamepadTextInputMode eInp
 	}
 
 	return VROverlayError_None;
-}
+} */
 EVROverlayError BaseOverlay::ShowKeyboard(EGamepadTextInputMode eInputMode, EGamepadTextInputLineMode eLineInputMode,
 	const char *pchDescription, uint32_t unCharMax, const char *pchExistingText, bool bUseMinimalMode, uint64_t uUserValue) {
-
-	VRKeyboard::eventDispatch_t dispatch = [](VREvent_t ev) {
+  STUBBED();
+  return VROverlayError_None;
+	/* VRKeyboard::eventDispatch_t dispatch = [](VREvent_t ev) {
 		BaseSystem *sys = GetUnsafeBaseSystem();
 		if (sys) {
 			sys->_EnqueueEvent(ev);
 		}
 	};
 
-	return ShowKeyboardWithDispatch(eInputMode, eLineInputMode, pchDescription, unCharMax, pchExistingText, bUseMinimalMode, uUserValue, dispatch);
+	return ShowKeyboardWithDispatch(eInputMode, eLineInputMode, pchDescription, unCharMax, pchExistingText, bUseMinimalMode, uUserValue, dispatch); */
 }
 EVROverlayError BaseOverlay::ShowKeyboardForOverlay(VROverlayHandle_t ulOverlayHandle,
 	EGamepadTextInputMode eInputMode, EGamepadTextInputLineMode eLineInputMode,
 	const char *pchDescription, uint32_t unCharMax, const char *pchExistingText,
 	bool bUseMinimalMode, uint64_t uUserValue) {
-
-	USEH();
+  STUBBED();
+  return VROverlayError_None;
+	/* USEH();
 
 	VRKeyboard::eventDispatch_t dispatch = [overlay](VREvent_t ev) {
 		overlay->eventQueue.push(ev);
 	};
 
-	return ShowKeyboardWithDispatch(eInputMode, eLineInputMode, pchDescription, unCharMax, pchExistingText, bUseMinimalMode, uUserValue, dispatch);
+	return ShowKeyboardWithDispatch(eInputMode, eLineInputMode, pchDescription, unCharMax, pchExistingText, bUseMinimalMode, uUserValue, dispatch); */
 }
 uint32_t BaseOverlay::GetKeyboardText(char *pchText, uint32_t cchText) {
-	string str = keyboard ? VRKeyboard::CHAR_CONV.to_bytes(keyboard->contents()) : keyboardCache;
+  STUBBED();
+  return 0;
+	/* string str = keyboard ? VRKeyboard::CHAR_CONV.to_bytes(keyboard->contents()) : keyboardCache;
 
 	// FFS, strncpy is secure.
 	strncpy_s(pchText, cchText, str.c_str(), cchText);
@@ -735,10 +745,11 @@ uint32_t BaseOverlay::GetKeyboardText(char *pchText, uint32_t cchText) {
 	pchText[cchText - 1] = 0;
 
 	// TODO is this supposed to return the length of the string including or excluding the cchText limit?
-	return (uint32_t)strlen(pchText);
+	return (uint32_t)strlen(pchText); */
 }
 void BaseOverlay::HideKeyboard() {
-	// First, if the keyboard is currently open, cache it's contents
+  STUBBED();
+	/* // First, if the keyboard is currently open, cache it's contents
 	if (keyboard) {
 		keyboardCache = VRKeyboard::CHAR_CONV.to_bytes(keyboard->contents());
 	}
@@ -749,10 +760,11 @@ void BaseOverlay::HideKeyboard() {
 	BaseSystem *system = GetUnsafeBaseSystem();
 	if (system) {
 		system->_BlockInputsUntilReleased();
-	}
+	} */
 }
 void BaseOverlay::SetKeyboardTransformAbsolute(ETrackingUniverseOrigin eTrackingOrigin, const HmdMatrix34_t *pmatTrackingOriginToKeyboardTransform) {
-	if (!keyboard)
+  STUBBED();
+	/* if (!keyboard)
 		OOVR_ABORT("Cannot set keyboard position when the keyboard is closed!");
 
 	BaseCompositor *compositor = GetUnsafeBaseCompositor();
@@ -760,7 +772,7 @@ void BaseOverlay::SetKeyboardTransformAbsolute(ETrackingUniverseOrigin eTracking
 		OOVR_ABORTF("Origin mismatch - current %d, requested %d", compositor->GetTrackingSpace(), eTrackingOrigin);
 	}
 
-	keyboard->SetTransform(*pmatTrackingOriginToKeyboardTransform);
+	keyboard->SetTransform(*pmatTrackingOriginToKeyboardTransform); */
 }
 void BaseOverlay::SetKeyboardPositionForOverlay(VROverlayHandle_t ulOverlayHandle, HmdRect2_t avoidRect) {
 	STUBBED();

@@ -1,5 +1,7 @@
 #pragma once
 #include "OpenVR/interfaces/vrtypes.h"
+#include <memory>
+#include <iostream>
 
 class CVRCommon {
 public:

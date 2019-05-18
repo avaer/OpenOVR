@@ -1,5 +1,5 @@
 #pragma once
-#include "OVR_CAPI.h"
+// #include "OVR_CAPI.h"
 
 #include <d3d11.h>
 

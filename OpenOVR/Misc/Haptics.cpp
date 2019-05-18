@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Haptics.h"
-#include "libovr_wrapper.h"
+// #include "libovr_wrapper.h"
 #include <thread>
 #include <chrono>
 #include <future>

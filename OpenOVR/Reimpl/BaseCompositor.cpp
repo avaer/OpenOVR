@@ -3,14 +3,14 @@
 
 #include "Misc/Config.h"
 
-#include "OVR_CAPI.h"
-#include "libovr_wrapper.h"
-#include "convert.h"
+// #include "OVR_CAPI.h"
+// #include "libovr_wrapper.h"
+// #include "convert.h"
 
-#include "Extras/OVR_Math.h"
-using namespace OVR;
+// #include "Extras/OVR_Math.h"
+// using namespace OVR;
 
-using namespace std;
+// using namespace std;
 
 #include "BaseCompositor.h"
 #include "BaseOverlay.h"
@@ -21,14 +21,14 @@ using namespace std;
 
 // Need the LibOVR Vulkan headers for the GetVulkan[Device|Instance]ExtensionsRequired methods
 #if defined(SUPPORT_VK)
-#include "OVR_CAPI_Vk.h"
+// #include "OVR_CAPI_Vk.h"
 #endif
 #if defined(SUPPORT_DX)
-#include "OVR_CAPI_D3D.h"
+// #include "OVR_CAPI_D3D.h"
 #endif
 
 #include "Misc/ScopeGuard.h"
-#include "Drivers/Backend.h"
+// #include "Drivers/Backend.h"
 
 using namespace vr;
 using namespace IVRCompositor_022;
@@ -44,40 +44,45 @@ BaseCompositor::~BaseCompositor() {
 }
 
 void BaseCompositor::SetTrackingSpace(ETrackingUniverseOrigin eOrigin) {
-	ovrTrackingOrigin origin = ovrTrackingOrigin_FloorLevel;
+  STUBBED();
+	/* ovrTrackingOrigin origin = ovrTrackingOrigin_FloorLevel;
 	if (eOrigin == TrackingUniverseSeated) {
 		origin = ovrTrackingOrigin_EyeLevel;
 	}
 
-	OOVR_FAILED_OVR_ABORT(ovr_SetTrackingOriginType(SESS, origin));
+	OOVR_FAILED_OVR_ABORT(ovr_SetTrackingOriginType(SESS, origin)); */
 }
 
 ETrackingUniverseOrigin BaseCompositor::GetTrackingSpace() {
-	if (ovr_GetTrackingOriginType(SESS) == ovrTrackingOrigin_EyeLevel) {
+  STUBBED();
+	/* if (ovr_GetTrackingOriginType(SESS) == ovrTrackingOrigin_EyeLevel) {
 		return TrackingUniverseSeated;
 	}
 	else {
 		return TrackingUniverseStanding;
-	}
+	} */
 }
 
 ovr_enum_t BaseCompositor::WaitGetPoses(TrackedDevicePose_t * renderPoseArray, uint32_t renderPoseArrayCount,
 	TrackedDevicePose_t * gamePoseArray, uint32_t gamePoseArrayCount) {
 
-	// Assume this method isn't being called between frames, b/c it really shouldn't be.
+  STUBBED();
+
+	/* // Assume this method isn't being called between frames, b/c it really shouldn't be.
 	leftEyeSubmitted = false;
 	rightEyeSubmitted = false;
 
 	BackendManager::Instance().WaitForTrackingData();
 
-	return GetLastPoses(renderPoseArray, renderPoseArrayCount, gamePoseArray, gamePoseArrayCount);
+	return GetLastPoses(renderPoseArray, renderPoseArrayCount, gamePoseArray, gamePoseArrayCount); */
 }
 
 void BaseCompositor::GetSinglePoseRendering(ETrackingUniverseOrigin origin, TrackedDeviceIndex_t unDeviceIndex, TrackedDevicePose_t * pOutputPose) {
-	BackendManager::Instance().GetSinglePose(origin, unDeviceIndex, pOutputPose, ETrackingStateType::TrackingStateType_Rendering);
+  STUBBED();
+	// BackendManager::Instance().GetSinglePose(origin, unDeviceIndex, pOutputPose, ETrackingStateType::TrackingStateType_Rendering);
 }
 
-Matrix4f BaseCompositor::GetHandTransform() {
+/* Matrix4f BaseCompositor::GetHandTransform() {
 	float deg_to_rad = math_pi / 180;
 
 	// The angle offset between the Touch and Vive controllers.
@@ -99,7 +104,7 @@ Matrix4f BaseCompositor::GetHandTransform() {
 	transform.SetTranslation(Vector3f(0.0f, 0.0353f, -0.0451f));
 
 	return transform;
-}
+} */
 
 ovr_enum_t BaseCompositor::GetLastPoses(TrackedDevicePose_t * renderPoseArray, uint32_t renderPoseArrayCount,
 	TrackedDevicePose_t * gamePoseArray, uint32_t gamePoseArrayCount) {
@@ -150,9 +155,9 @@ ovr_enum_t BaseCompositor::GetLastPoseForTrackedDeviceIndex(TrackedDeviceIndex_t
 	return VRCompositorError_None;
 }
 
-DX11Compositor *BaseCompositor::dxcomp;
+// DX11Compositor *BaseCompositor::dxcomp;
 
-Compositor* BaseCompositor::CreateCompositorAPI(const vr::Texture_t* texture, const OVR::Sizei& fovTextureSize)
+/* Compositor* BaseCompositor::CreateCompositorAPI(const vr::Texture_t* texture, const OVR::Sizei& fovTextureSize)
 {
 	Compositor* comp = nullptr;
 
@@ -197,10 +202,11 @@ Compositor* BaseCompositor::CreateCompositorAPI(const vr::Texture_t* texture, co
 	}
 
 	return comp;
-}
+} */
 
 ovr_enum_t BaseCompositor::Submit(EVREye eye, const Texture_t * texture, const VRTextureBounds_t * bounds, EVRSubmitFlags submitFlags) {
-	bool isFirstEye = !leftEyeSubmitted && !rightEyeSubmitted;
+  STUBBED();
+	/* bool isFirstEye = !leftEyeSubmitted && !rightEyeSubmitted;
 
 	bool eyeState = false;
 	if (eye == Eye_Left)
@@ -237,7 +243,7 @@ ovr_enum_t BaseCompositor::Submit(EVREye eye, const Texture_t * texture, const V
 
 		leftEyeSubmitted = false;
 		rightEyeSubmitted = false;
-	}
+	} */
 
 	return VRCompositorError_None;
 }
@@ -261,7 +267,9 @@ void BaseCompositor::PostPresentHandoff() {
 }
 
 bool BaseCompositor::GetFrameTiming(OOVR_Compositor_FrameTiming * pTiming, uint32_t unFramesAgo) {
-	return BackendManager::Instance().GetFrameTiming(pTiming, unFramesAgo);
+  STUBBED();
+  return false;
+	// return BackendManager::Instance().GetFrameTiming(pTiming, unFramesAgo);
 }
 
 uint32_t BaseCompositor::GetFrameTimings(OOVR_Compositor_FrameTiming * pTiming, uint32_t nFrames) {
@@ -305,11 +313,14 @@ float BaseCompositor::GetCurrentGridAlpha() {
 }
 
 ovr_enum_t BaseCompositor::SetSkyboxOverride(const Texture_t * pTextures, uint32_t unTextureCount) {
-	return BackendManager::Instance().SetSkyboxOverride(pTextures, unTextureCount);
+  STUBBED();
+  return VRCompositorError_None;
+	// return BackendManager::Instance().SetSkyboxOverride(pTextures, unTextureCount);
 }
 
 void BaseCompositor::ClearSkyboxOverride() {
-	BackendManager::Instance().ClearSkyboxOverride();
+  STUBBED();
+	// BackendManager::Instance().ClearSkyboxOverride();
 }
 
 void BaseCompositor::CompositorBringToFront() {
@@ -378,7 +389,9 @@ void BaseCompositor::SuspendRendering(bool bSuspend) {
 
 #if defined(SUPPORT_DX)
 ovr_enum_t BaseCompositor::GetMirrorTextureD3D11(EVREye eEye, void * pD3D11DeviceOrResource, void ** ppD3D11ShaderResourceView) {
-	return BackendManager::Instance().GetMirrorTextureD3D11(eEye, pD3D11DeviceOrResource, ppD3D11ShaderResourceView);
+  STUBBED();
+  return VRCompositorError_None;
+	// return BackendManager::Instance().GetMirrorTextureD3D11(eEye, pD3D11DeviceOrResource, ppD3D11ShaderResourceView);
 }
 #else
 ovr_enum_t BaseCompositor::GetMirrorTextureD3D11(EVREye eEye, void * pD3D11DeviceOrResource, void ** ppD3D11ShaderResourceView) {
@@ -387,7 +400,8 @@ ovr_enum_t BaseCompositor::GetMirrorTextureD3D11(EVREye eEye, void * pD3D11Devic
 #endif
 
 void BaseCompositor::ReleaseMirrorTextureD3D11(void * pD3D11ShaderResourceView) {
-	return BackendManager::Instance().ReleaseMirrorTextureD3D11(pD3D11ShaderResourceView);
+  STUBBED();
+	// return BackendManager::Instance().ReleaseMirrorTextureD3D11(pD3D11ShaderResourceView);
 }
 
 ovr_enum_t BaseCompositor::GetMirrorTextureGL(EVREye eEye, glUInt_t * pglTextureId, glSharedTextureHandle_t * pglSharedTextureHandle) {
@@ -409,7 +423,7 @@ void BaseCompositor::UnlockGLSharedTextureForAccess(glSharedTextureHandle_t glSh
 uint32_t BaseCompositor::GetVulkanInstanceExtensionsRequired(VR_OUT_STRING() char * pchValue, uint32_t unBufferSize) {
 #if defined(SUPPORT_VK)
 	// Whaddya know, the Oculus and Valve methods work almost identically...
-	OOVR_FAILED_OVR_ABORT(ovr_GetInstanceExtensionsVk(*ovr::luid, pchValue, &unBufferSize));
+	// OOVR_FAILED_OVR_ABORT(ovr_GetInstanceExtensionsVk(*ovr::luid, pchValue, &unBufferSize));
 	return unBufferSize;
 #else
 	STUBBED();
@@ -419,7 +433,7 @@ uint32_t BaseCompositor::GetVulkanInstanceExtensionsRequired(VR_OUT_STRING() cha
 uint32_t BaseCompositor::GetVulkanDeviceExtensionsRequired(VkPhysicalDevice_T * pPhysicalDevice, char * pchValue, uint32_t unBufferSize) {
 #if defined(SUPPORT_VK)
 	// Use the default LUID, even if another physical device is passed in. TODO.
-	OOVR_FAILED_OVR_ABORT(ovr_GetDeviceExtensionsVk(*ovr::luid, pchValue, &unBufferSize));
+	// OOVR_FAILED_OVR_ABORT(ovr_GetDeviceExtensionsVk(*ovr::luid, pchValue, &unBufferSize));
 	return unBufferSize;
 #else
 	STUBBED();

@@ -7,24 +7,24 @@
 #include "Reimpl/GVRClientCore.gen.h"
 
 #include "steamvr_abi.h"
-#include "libovr_wrapper.h"
+// #include "libovr_wrapper.h"
 #include "Misc/debug_helper.h"
 #include "Misc/audio_override.h"
 #include "Misc/Config.h"
 #include <map>
 #include <memory>
 
-#include "OVR_CAPI_Audio.h"
+// #include "OVR_CAPI_Audio.h"
 
 // Specific to OCOVR
 #include "Drivers/Backend.h"
 #include "Drivers/DriverManager.h"
-#include "DrvOculus.h"
+// #include "DrvOculus.h"
 
 using namespace std;
 
-static void init_audio();
-static void setup_audio();
+// static void init_audio();
+// static void setup_audio();
 
 HMODULE openovr_module_id;
 HMODULE chainedImplementation;
@@ -41,7 +41,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 #if defined(_DEBUG)
 		DbgSetModule(hModule);
 #endif
-		init_audio();
+		// init_audio();
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
 		break;
@@ -206,10 +206,10 @@ VR_INTERFACE uint32_t VR_CALLTYPE VR_InitInternal2(EVRInitError * peError, EVRAp
 	if (running)
 		ERR("Cannot init VR: Already running!");
 
-	ovr::Setup();
-	running_ovr = true;
+	// ovr::Setup();
+	// running_ovr = true;
 
-	setup_audio();
+	// setup_audio();
 
 success:
 	current_apptype = eApplicationType;
@@ -217,14 +217,15 @@ success:
 	*peError = VRInitError_None;
 
 	// TODO seperate this from the rest of dllmain
-	BackendManager::Create(DrvOculus::CreateOculusBackend());
+	// BackendManager::Create(DrvOculus::CreateOculusBackend());
 	// DriverManager::Instance().Register(DrvOculus::CreateOculusDriver());
 
 	return current_init_token;
 }
 
 VR_INTERFACE bool VR_CALLTYPE VR_IsHmdPresent() {
-	return ovr::IsAvailable();
+  return true;
+	// return ovr::IsAvailable();
 }
 
 VR_INTERFACE bool VR_CALLTYPE VR_IsInterfaceVersionValid(const char * pchInterfaceVersion) {
@@ -247,8 +248,8 @@ VR_INTERFACE void VR_CALLTYPE VR_ShutdownInternal() {
 	interfaces.clear();
 
 	// Shut down LibOVR
-	if(running_ovr)
-		ovr::Shutdown();
+	/* if(running_ovr)
+		ovr::Shutdown(); */
 
 	running = false;
 }
@@ -331,7 +332,7 @@ void init_audio() {
 // This switches over to the audio device returned by LibOVR, which supports
 //  stuff like audio mirroring. This can only be called after LibOVR is initialised,
 //  and thus will work on some games and not on others.
-void setup_audio() {
+/* void setup_audio() {
 	if (!oovr_global_configuration.EnableAudio())
 		return;
 
@@ -339,4 +340,4 @@ void setup_audio() {
 	ovrResult r = ovr_GetAudioDeviceOutGuidStr(deviceOutStrBuffer);
 	if (r == ovrSuccess)
 		set_app_default_audio_device(deviceOutStrBuffer);
-}
+} */

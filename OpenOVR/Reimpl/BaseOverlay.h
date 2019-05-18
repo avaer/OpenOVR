@@ -1,6 +1,6 @@
 #pragma once
 #include "../BaseCommon.h" // TODO don't import from OCOVR, and remove the "../"
-#include "../Misc/Keyboard/VRKeyboard.h" // TODO don't import from OCOVR, and remove the "../"
+// #include "../Misc/Keyboard/VRKeyboard.h" // TODO don't import from OCOVR, and remove the "../"
 #include <map>
 #include <queue>
 #include <vector>
@@ -166,7 +166,7 @@ private:
 	std::vector<ovrLayerHeader_*> layerHeaders;
 
 	// Virtual Keyboard
-	std::unique_ptr<VRKeyboard> keyboard;
+	// std::unique_ptr<VRKeyboard> keyboard;
 
 	// Cached copy of the keyboard contents, available after it is closed
 	std::string keyboardCache;
@@ -174,18 +174,18 @@ private:
 	// True if we're modifying the input in any way
 	bool usingInput;
 
-	virtual EVROverlayError ShowKeyboardWithDispatch(
+	/* virtual EVROverlayError ShowKeyboardWithDispatch(
 		EGamepadTextInputMode eInputMode, EGamepadTextInputLineMode eLineInputMode,
 		const char *pchDescription, uint32_t unCharMax, const char *pchExistingText,
 		bool bUseMinimalMode, uint64_t uUserValue,
-		VRKeyboard::eventDispatch_t eventDispatch);
+		VRKeyboard::eventDispatch_t eventDispatch); */
 
 public:
 	// Destructor, since we have a map of pointers
 	~BaseOverlay();
 
 	// Builds the collection of layers to be submitted to LibOVR
-	int _BuildLayers(ovrLayerHeader_ *sceneLayer, ovrLayerHeader_ const* const*& result);
+	// int _BuildLayers(ovrLayerHeader_ *sceneLayer, ovrLayerHeader_ const* const*& result);
 
 	// If an overlay needs input, this grabs the input and returns whether the input should preceed to the application
 	bool _HandleOverlayInput(vr::EVREye role, vr::TrackedDeviceIndex_t controllerDeviceIndex, vr::VRControllerState_t state);

@@ -2,7 +2,7 @@
 #define BASE_IMPL
 #include "BaseRenderModels.h"
 #include "resources.h"
-#include "convert.h"
+// #include "convert.h"
 #include "Misc/Config.h"
 
 // Used for the hand offsets
@@ -13,7 +13,7 @@
 #include <vector>
 
 using namespace std;
-using namespace OVR;
+// using namespace OVR;
 
 #pragma region structs
 
@@ -142,7 +142,8 @@ static OOVR_RenderModel_Vertex_t split_face(
 }
 
 EVRRenderModelError BaseRenderModels::LoadRenderModel_Async(const char * pchRenderModelName, RenderModel_t ** renderModel) {
-	string name = pchRenderModelName;
+  STUBBED();
+	/* string name = pchRenderModelName;
 	int rid;
 	int sided;
 
@@ -248,7 +249,7 @@ EVRRenderModelError BaseRenderModels::LoadRenderModel_Async(const char * pchRend
 	rm.unTriangleCount = rm.unVertexCount / 3;
 
 	// Texture
-	rm.diffuseTextureId = -1; // Disabled for now
+	rm.diffuseTextureId = -1; // Disabled for now */
 
 	return VRRenderModelError_None;
 }

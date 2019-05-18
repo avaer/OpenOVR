@@ -8,7 +8,7 @@
 #include <string>
 #include <codecvt>
 
-#include "OVR_CAPI_Audio.h"
+// #include "OVR_CAPI_Audio.h"
 
 #define STUBBED_BASIC() { \
 	string str = "Hit stubbed file at " __FILE__ " func "  " line " + to_string(__LINE__); \
@@ -178,8 +178,8 @@ float  BaseSettings::GetFloat(const char * pchSection, const char * pchSettingsK
 }
 void  BaseSettings::GetString(const char * pchSection, const char * pchSettingsKey, VR_OUT_STRING() char * pchValue,
 	uint32_t unValueLen, EVRSettingsError * peError) {
-
-	if (peError)
+  STUBBED();
+	/* if (peError)
 		*peError = VRSettingsError_None;
 
 	string section = pchSection;
@@ -224,7 +224,7 @@ found:
 		OOVR_ABORT("unValueLen too short!");
 	}
 
-	strcpy_s(pchValue, unValueLen, result.c_str());
+	strcpy_s(pchValue, unValueLen, result.c_str()); */
 }
 void  BaseSettings::RemoveSection(const char * pchSection, EVRSettingsError * peError) {
 	if (peError)

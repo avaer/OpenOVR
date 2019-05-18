@@ -1,6 +1,6 @@
 #pragma once
 #include "OVR_CAPI.h"
-#include "Extras/OVR_Math.h"
+// #include "Extras/OVR_Math.h"
 
 vr::HmdMatrix44_t O2S_m4(ovrMatrix4f input);
 ovrEyeType S2O_eye(vr::EVREye eye); // TODO inline without link errors
