@@ -7,7 +7,7 @@
 #include <wrl/client.h>
 #include <atlbase.h>
 
-#include <Extras/OVR_Math.h>
+// #include <Extras/OVR_Math.h>
 
 #include <vector>
 #include <memory>

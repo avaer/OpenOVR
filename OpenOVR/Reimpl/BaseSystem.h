@@ -1,7 +1,7 @@
 #pragma once
 #include "../BaseCommon.h" // TODO don't import from OCOVR, and remove the "../"
 #include "OpenVR/interfaces/IVRSystem_017.h"
-#include <OVR_CAPI.h>
+// #include <OVR_CAPI.h>
 #include <queue>
 
 using namespace vr;
@@ -18,7 +18,7 @@ private:
 		event_info_t(VREvent_t ev, TrackedDevicePose_t pose) : ev(ev), pose(pose) {}
 	};
 
-	ovrSessionStatus lastStatus;
+	// ovrSessionStatus lastStatus;
 	std::queue<event_info_t> events;
 
 	VRControllerState_t lastLeftHandState = { 0 };
@@ -38,7 +38,7 @@ public:
 
 	void _SetTrackingOrigin(ETrackingUniverseOrigin origin);
 	ETrackingUniverseOrigin _GetTrackingOrigin();
-	HmdMatrix34_t _PoseToTrackingSpace(ETrackingUniverseOrigin origin, ovrPosef pose);
+	// HmdMatrix34_t _PoseToTrackingSpace(ETrackingUniverseOrigin origin, ovrPosef pose);
 	ETrackingUniverseOrigin _GetRenderTrackingOrigin();
 private:
 	void CheckControllerEvents(vr::TrackedDeviceIndex_t hand, VRControllerState_t &last);

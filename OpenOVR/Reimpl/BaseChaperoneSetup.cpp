@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #define BASE_IMPL
 #include "BaseChaperoneSetup.h"
-#include "libovr_wrapper.h"
+// #include "libovr_wrapper.h"
 
 #include <string>
 
@@ -24,7 +24,8 @@ bool BaseChaperoneSetup::GetWorkingCollisionBoundsInfo(VR_OUT_ARRAY_COUNT(punQua
 	STUBBED();
 }
 bool BaseChaperoneSetup::GetLiveCollisionBoundsInfo(VR_OUT_ARRAY_COUNT(punQuadsCount) HmdQuad_t *pQuadsBuffer, uint32_t* punQuadsCount) {
-	// TODO better find out what this method does
+  STUBBED(); // XXX
+	/* // TODO better find out what this method does
 
 	ovrVector3f points[4];
 	int pointsCount;
@@ -51,7 +52,7 @@ bool BaseChaperoneSetup::GetLiveCollisionBoundsInfo(VR_OUT_ARRAY_COUNT(punQuadsC
 	if (punQuadsCount)
 		*punQuadsCount = 1;
 
-	return true;
+	return true; */
 }
 bool BaseChaperoneSetup::GetWorkingSeatedZeroPoseToRawTrackingPose(HmdMatrix34_t *pmatSeatedZeroPoseToRawTrackingPose) {
 	STUBBED();

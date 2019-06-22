@@ -2,13 +2,14 @@
 #define BASE_IMPL
 #include "BaseExtendedDisplay.h"
 
-#include "libovr_wrapper.h"
-#include "OVR_CAPI.h"
+// #include "libovr_wrapper.h"
+// #include "OVR_CAPI.h"
 #include <string>
 
 // Unreal Engine uses this for some silly reason
 void BaseExtendedDisplay::GetWindowBounds(int32_t * pnX, int32_t * pnY, uint32_t * pnWidth, uint32_t * pnHeight) {
-	ovrSizei size = ovr_GetFovTextureSize(
+  STUBBED();
+	/* ovrSizei size = ovr_GetFovTextureSize(
 		*ovr::session,
 		ovrEye_Left, // Resolutions are done per-eye in LibOVR, no particular reason for left eye
 		ovr::hmdDesc.DefaultEyeFov[ovrEye_Left],
@@ -19,7 +20,7 @@ void BaseExtendedDisplay::GetWindowBounds(int32_t * pnX, int32_t * pnY, uint32_t
 	*pnX = 0;
 	*pnY = 0;
 	*pnWidth = size.w * 2;
-	*pnHeight = size.h;
+	*pnHeight = size.h; */
 }
 
 void BaseExtendedDisplay::GetEyeOutputViewport(vr::EVREye eEye, uint32_t * pnX, uint32_t * pnY, uint32_t * pnWidth, uint32_t * pnHeight) {

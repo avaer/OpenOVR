@@ -1,15 +1,15 @@
 #include "stdafx.h"
 #define BASE_IMPL
 #include "BaseSystem.h"
-#include "OVR_CAPI.h"
-#include "libovr_wrapper.h"
-#include "convert.h"
+// #include "OVR_CAPI.h"
+// #include "libovr_wrapper.h"
+// #include "convert.h"
 #include "BaseCompositor.h"
 #include "BaseOverlay.h"
-#include "Misc/Haptics.h"
-#include "Misc/Config.h"
+// #include "Misc/Haptics.h"
+// #include "Misc/Config.h"
 #include "static_bases.gen.h"
-#include "Drivers/Backend.h"
+// #include "Drivers/Backend.h"
 
 #include <string>
 
@@ -20,7 +20,7 @@
 
 // Needed for GetOutputDevice if Vulkan is enabled
 #if defined(SUPPORT_VK)
-#include "OVR_CAPI_Vk.h"
+// #include "OVR_CAPI_Vk.h"
 #endif
 
 using namespace std;
@@ -31,27 +31,33 @@ BaseSystem::BaseSystem() {
 }
 
 void BaseSystem::GetRecommendedRenderTargetSize(uint32_t * width, uint32_t * height) {
-	BackendManager::Instance().GetPrimaryHMD()->GetRecommendedRenderTargetSize(width, height);
+  STUBBED();
+	// BackendManager::Instance().GetPrimaryHMD()->GetRecommendedRenderTargetSize(width, height);
 }
 
 HmdMatrix44_t BaseSystem::GetProjectionMatrix(EVREye eye, float znear, float zfar) {
-	return BackendManager::Instance().GetPrimaryHMD()->GetProjectionMatrix(eye, znear, zfar);
+  STUBBED();
+	// return BackendManager::Instance().GetPrimaryHMD()->GetProjectionMatrix(eye, znear, zfar);
 }
 
 void BaseSystem::GetProjectionRaw(EVREye eye, float * pfLeft, float * pfRight, float * pfTop, float * pfBottom) {
-	return BackendManager::Instance().GetPrimaryHMD()->GetProjectionRaw(eye, pfLeft, pfRight, pfTop, pfBottom);
+  STUBBED();
+	// return BackendManager::Instance().GetPrimaryHMD()->GetProjectionRaw(eye, pfLeft, pfRight, pfTop, pfBottom);
 }
 
 bool BaseSystem::ComputeDistortion(EVREye eEye, float fU, float fV, DistortionCoordinates_t * out) {
-	return BackendManager::Instance().GetPrimaryHMD()->ComputeDistortion(eEye, fU, fV, out);
+  STUBBED();
+	// return BackendManager::Instance().GetPrimaryHMD()->ComputeDistortion(eEye, fU, fV, out);
 }
 
 HmdMatrix34_t BaseSystem::GetEyeToHeadTransform(EVREye ovr_eye) {
-	return BackendManager::Instance().GetPrimaryHMD()->GetEyeToHeadTransform(ovr_eye);
+  STUBBED();
+	// return BackendManager::Instance().GetPrimaryHMD()->GetEyeToHeadTransform(ovr_eye);
 }
 
 bool BaseSystem::GetTimeSinceLastVsync(float * pfSecondsSinceLastVsync, uint64_t * pulFrameCounter) {
-	return BackendManager::Instance().GetPrimaryHMD()->GetTimeSinceLastVsync(pfSecondsSinceLastVsync, pulFrameCounter);
+  STUBBED();
+	// return BackendManager::Instance().GetPrimaryHMD()->GetTimeSinceLastVsync(pfSecondsSinceLastVsync, pulFrameCounter);
 }
 
 int32_t BaseSystem::GetD3D9AdapterIndex() {
@@ -59,7 +65,8 @@ int32_t BaseSystem::GetD3D9AdapterIndex() {
 }
 
 void BaseSystem::GetDXGIOutputInfo(int32_t * adapterIndex) {
-#ifdef SUPPORT_DX
+  STUBBED();
+/* #ifdef SUPPORT_DX
 #define VALIDATE(x, msg) if (!(x)) { MessageBoxA(nullptr, (msg), "CVRSystem", MB_ICONERROR | MB_OK); exit(-1); }
 
 	LUID* luid = reinterpret_cast<LUID*>(ovr::luid);
@@ -95,12 +102,12 @@ void BaseSystem::GetDXGIOutputInfo(int32_t * adapterIndex) {
 #undef VALIDATE
 #else
 	OOVR_ABORT("DX not supported - build with SUPPORT_DX defined");
-#endif
+#endif */
 }
 
 void BaseSystem::GetOutputDevice(uint64_t * pnDevice, ETextureType textureType, VkInstance_T * pInstance) {
-
-	switch (textureType) {
+  STUBBED();
+	/* switch (textureType) {
 	case TextureType_Vulkan: {
 #if defined(SUPPORT_VK)
 		ovrResult res = ovr_GetSessionPhysicalDeviceVk(*ovr::session, *ovr::luid, pInstance, (VkPhysicalDevice*)pnDevice);
@@ -113,8 +120,7 @@ void BaseSystem::GetOutputDevice(uint64_t * pnDevice, ETextureType textureType, 
 	}
 	default:
 		OOVR_LOGF("Unsupported texture type for GetOutputDevice %d", textureType);
-	}
-
+	} */
 }
 
 bool BaseSystem::IsDisplayOnDesktop() {
@@ -127,26 +133,32 @@ bool BaseSystem::SetDisplayVisibility(bool bIsVisibleOnDesktop) {
 
 void BaseSystem::GetDeviceToAbsoluteTrackingPose(ETrackingUniverseOrigin toOrigin, float predictedSecondsToPhotonsFromNow,
 	TrackedDevicePose_t * poseArray, uint32_t poseArrayCount) {
-
-	BackendManager::Instance().GetDeviceToAbsoluteTrackingPose(toOrigin, predictedSecondsToPhotonsFromNow, poseArray, poseArrayCount);
+  STUBBED();
+	// BackendManager::Instance().GetDeviceToAbsoluteTrackingPose(toOrigin, predictedSecondsToPhotonsFromNow, poseArray, poseArrayCount);
 }
 
 HmdMatrix34_t BaseSystem::GetSeatedZeroPoseToStandingAbsoluteTrackingPose() {
-	// TODO can we discover the player's seated height somehow?
+  STUBBED();
+  HmdMatrix34_t res;
+  return res;
+	/* // TODO can we discover the player's seated height somehow?
 	// For now just add 0.5 meters
 	OVR::Matrix4f in;
 	in.Translation(OVR::Vector3f(0, 0.5, 0));
 
 	HmdMatrix34_t res;
 	O2S_om34(in, res);
-	return res;
+	return res; */
 }
 
 HmdMatrix34_t BaseSystem::GetRawZeroPoseToStandingAbsoluteTrackingPose() {
-	// These *are* the same coordinate systems
+  STUBBED();
+  HmdMatrix34_t res;
+  return res;
+	/* // These *are* the same coordinate systems
 	HmdMatrix34_t res;
 	O2S_om34(OVR::Matrix4f::Identity(), res);
-	return res;
+	return res; */
 }
 
 uint32_t BaseSystem::GetSortedTrackedDeviceIndicesOfClass(ETrackedDeviceClass targetClass,
@@ -228,86 +240,95 @@ ETrackedDeviceClass BaseSystem::GetTrackedDeviceClass(vr::TrackedDeviceIndex_t d
 }
 
 bool BaseSystem::IsTrackedDeviceConnected(vr::TrackedDeviceIndex_t deviceIndex) {
-	return BackendManager::Instance().GetDevice(deviceIndex) != nullptr;
+  STUBBED();
+	// return BackendManager::Instance().GetDevice(deviceIndex) != nullptr;
 }
 
 bool BaseSystem::GetBoolTrackedDeviceProperty(vr::TrackedDeviceIndex_t unDeviceIndex, ETrackedDeviceProperty prop, ETrackedPropertyError * pErrorL) {
-	ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
+  STUBBED();
+  return false;
+	/* ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
 
 	if (!dev) {
 		*pErrorL = TrackedProp_InvalidDevice;
 		return false;
 	}
 
-	return dev->GetBoolTrackedDeviceProperty(prop, pErrorL);
+	return dev->GetBoolTrackedDeviceProperty(prop, pErrorL); */
 }
 
 float BaseSystem::GetFloatTrackedDeviceProperty(vr::TrackedDeviceIndex_t unDeviceIndex, ETrackedDeviceProperty prop, ETrackedPropertyError * pErrorL) {
-	ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
+  STUBBED();
+	/* ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
 
 	if (!dev) {
 		*pErrorL = TrackedProp_InvalidDevice;
 		return 0;
 	}
 
-	return dev->GetFloatTrackedDeviceProperty(prop, pErrorL);
+	return dev->GetFloatTrackedDeviceProperty(prop, pErrorL); */
 }
 
 int32_t BaseSystem::GetInt32TrackedDeviceProperty(vr::TrackedDeviceIndex_t unDeviceIndex, ETrackedDeviceProperty prop, ETrackedPropertyError * pErrorL) {
-	ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
+  STUBBED();
+	/* ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
 
 	if (!dev) {
 		*pErrorL = TrackedProp_InvalidDevice;
 		return 0;
 	}
 
-	return dev->GetInt32TrackedDeviceProperty(prop, pErrorL);
+	return dev->GetInt32TrackedDeviceProperty(prop, pErrorL); */
 }
 
 uint64_t BaseSystem::GetUint64TrackedDeviceProperty(vr::TrackedDeviceIndex_t unDeviceIndex, ETrackedDeviceProperty prop, ETrackedPropertyError * pErrorL) {
-	ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
+  STUBBED();
+	/* ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
 
 	if (!dev) {
 		*pErrorL = TrackedProp_InvalidDevice;
 		return 0;
 	}
 
-	return dev->GetUint64TrackedDeviceProperty(prop, pErrorL);
+	return dev->GetUint64TrackedDeviceProperty(prop, pErrorL); */
 }
 
 HmdMatrix34_t BaseSystem::GetMatrix34TrackedDeviceProperty(vr::TrackedDeviceIndex_t unDeviceIndex, ETrackedDeviceProperty prop, ETrackedPropertyError * pErrorL) {
-	ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
+  STUBBED();
+	/* ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
 
 	if (!dev) {
 		*pErrorL = TrackedProp_InvalidDevice;
 		return { 0 };
 	}
 
-	return dev->GetMatrix34TrackedDeviceProperty(prop, pErrorL);
+	return dev->GetMatrix34TrackedDeviceProperty(prop, pErrorL); */
 }
 
 uint32_t BaseSystem::GetArrayTrackedDeviceProperty(vr::TrackedDeviceIndex_t unDeviceIndex, ETrackedDeviceProperty prop, PropertyTypeTag_t propType, void * pBuffer, uint32_t unBufferSize, ETrackedPropertyError * pError) {
-	ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
+  STUBBED();
+	/* ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
 
 	if (!dev) {
 		*pError = TrackedProp_InvalidDevice;
 		return { 0 };
 	}
 
-	return dev->GetArrayTrackedDeviceProperty(prop, propType, pBuffer, unBufferSize, pError);
+	return dev->GetArrayTrackedDeviceProperty(prop, propType, pBuffer, unBufferSize, pError); */
 }
 
 uint32_t BaseSystem::GetStringTrackedDeviceProperty(vr::TrackedDeviceIndex_t unDeviceIndex, ETrackedDeviceProperty prop,
 	VR_OUT_STRING() char * value, uint32_t bufferSize, ETrackedPropertyError * pErrorL) {
 
-	ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
+  STUBBED();
+	/* ITrackedDevice *dev = BackendManager::Instance().GetDevice(unDeviceIndex);
 
 	if (!dev) {
 		*pErrorL = TrackedProp_InvalidDevice;
 		return 0;
 	}
 
-	return dev->GetStringTrackedDeviceProperty(prop, value, bufferSize, pErrorL);
+	return dev->GetStringTrackedDeviceProperty(prop, value, bufferSize, pErrorL); */
 }
 
 const char * BaseSystem::GetPropErrorNameFromEnum(ETrackedPropertyError error) {
@@ -315,23 +336,32 @@ const char * BaseSystem::GetPropErrorNameFromEnum(ETrackedPropertyError error) {
 }
 
 bool BaseSystem::IsInputAvailable() {
-	return lastStatus.HasInputFocus;
+  STUBBED();
+  return false;
+	// return lastStatus.HasInputFocus;
 }
 
 bool BaseSystem::IsSteamVRDrawingControllers() {
-	return !lastStatus.HasInputFocus;
+  STUBBED();
+  return false;
+	// return !lastStatus.HasInputFocus;
 }
 
 bool BaseSystem::ShouldApplicationPause() {
-	return !lastStatus.HasInputFocus;
+  STUBBED();
+  return false;
+	// return !lastStatus.HasInputFocus;
 }
 
 bool BaseSystem::ShouldApplicationReduceRenderingWork() {
-	return lastStatus.OverlayPresent;
+  STUBBED();
+  return false;
+	// return lastStatus.OverlayPresent;
 }
 
 void BaseSystem::_OnPostFrame() {
-	ovrSessionStatus status;
+  STUBBED();
+	/* ovrSessionStatus status;
 	ovr_GetSessionStatus(*ovr::session, &status);
 
 	if (status.ShouldQuit && !lastStatus.ShouldQuit) {
@@ -364,7 +394,7 @@ void BaseSystem::_OnPostFrame() {
 
 	// Note this isn't called if handle_event is called, preventing one
 	//  event from firing despite another event also being changed in the same poll call
-	lastStatus = status;
+	lastStatus = status; */
 }
 
 void BaseSystem::_EnqueueEvent(const VREvent_t &e) {
@@ -377,10 +407,12 @@ void BaseSystem::_BlockInputsUntilReleased() {
 }
 
 float BaseSystem::SGetIpd() {
-	ovrPosef &left = ovr::hmdToEyeViewPose[ovrEye_Left];
+  STUBBED();
+  return 0.62f;
+	/* ovrPosef &left = ovr::hmdToEyeViewPose[ovrEye_Left];
 	ovrPosef &right = ovr::hmdToEyeViewPose[ovrEye_Right];
 
-	return abs(left.Position.x - right.Position.x);
+	return abs(left.Position.x - right.Position.x); */
 }
 
 void BaseSystem::CheckControllerEvents(TrackedDeviceIndex_t hand, VRControllerState_t &last) {
@@ -465,11 +497,16 @@ const char * BaseSystem::GetEventTypeNameFromEnum(EVREventType eType) {
 }
 
 HiddenAreaMesh_t BaseSystem::GetHiddenAreaMesh(EVREye eEye, EHiddenAreaMeshType type) {
-	return BackendManager::Instance().GetPrimaryHMD()->GetHiddenAreaMesh(eEye, type);
+  STUBBED();
+  HiddenAreaMesh_t res;
+  return res;
+	// return BackendManager::Instance().GetPrimaryHMD()->GetHiddenAreaMesh(eEye, type);
 }
 
 bool BaseSystem::GetControllerState(vr::TrackedDeviceIndex_t controllerDeviceIndex, vr::VRControllerState_t * controllerState, uint32_t controllerStateSize) {
-	if (sizeof(VRControllerState_t) != controllerStateSize)
+  STUBBED();
+  return false;
+	/* if (sizeof(VRControllerState_t) != controllerStateSize)
 		OOVR_ABORT("Bad controller state size - was the host compiled with an older version of OpenVR?");
 
 	memset(controllerState, 0, controllerStateSize);
@@ -524,19 +561,22 @@ blockInput:
 	uint32_t packetNum = controllerState->unPacketNum;
 	memset(controllerState, 0, controllerStateSize);
 	controllerState->unPacketNum = packetNum;
-	return true;
+	return true; */
 }
 
 bool BaseSystem::GetControllerStateWithPose(ETrackingUniverseOrigin eOrigin, vr::TrackedDeviceIndex_t unControllerDeviceIndex,
 	vr::VRControllerState_t * pControllerState, uint32_t unControllerStateSize, TrackedDevicePose_t * pTrackedDevicePose) {
 
-	BackendManager::Instance().GetSinglePose(eOrigin, unControllerDeviceIndex, pTrackedDevicePose, ETrackingStateType::TrackingStateType_Now);
+  STUBBED();
+  return false;
 
-	return GetControllerState(unControllerDeviceIndex, pControllerState, unControllerStateSize);
+	/* BackendManager::Instance().GetSinglePose(eOrigin, unControllerDeviceIndex, pTrackedDevicePose, ETrackingStateType::TrackingStateType_Now);
+
+	return GetControllerState(unControllerDeviceIndex, pControllerState, unControllerStateSize); */
 }
 
 void BaseSystem::TriggerHapticPulse(vr::TrackedDeviceIndex_t unControllerDeviceIndex, uint32_t unAxisId, unsigned short usDurationMicroSec) {
-	if (!oovr_global_configuration.Haptics())
+	/* if (!oovr_global_configuration.Haptics())
 		return;
 
 	if (unControllerDeviceIndex == leftHandIndex || unControllerDeviceIndex == rightHandIndex) {
@@ -545,7 +585,7 @@ void BaseSystem::TriggerHapticPulse(vr::TrackedDeviceIndex_t unControllerDeviceI
 		haptics.StartSimplePulse(unControllerDeviceIndex == leftHandIndex ? ovrControllerType_LTouch : ovrControllerType_RTouch, usDurationMicroSec);
 
 		return;
-	}
+	} */
 
 	// Invalid controller
 	STUBBED();
@@ -568,7 +608,9 @@ void BaseSystem::ReleaseInputFocus() {
 }
 
 bool BaseSystem::IsInputFocusCapturedByAnotherProcess() {
-	return !lastStatus.HasInputFocus;
+  STUBBED();
+  return false;
+	// return !lastStatus.HasInputFocus;
 }
 
 uint32_t BaseSystem::DriverDebugRequest(vr::TrackedDeviceIndex_t unDeviceIndex, const char * pchRequest, char * pchResponseBuffer, uint32_t unResponseBufferSize) {
@@ -594,7 +636,10 @@ DistortionCoordinates_t BaseSystem::ComputeDistortion(EVREye eEye, float fU, flo
 }
 
 HmdMatrix44_t BaseSystem::GetProjectionMatrix(EVREye eye, float znear, float zfar, EGraphicsAPIConvention convention) {
-	return BackendManager::Instance().GetPrimaryHMD()->GetProjectionMatrix(eye, znear, zfar, convention);
+  STUBBED();
+  HmdMatrix44_t res;
+  return res;
+	// return BackendManager::Instance().GetPrimaryHMD()->GetProjectionMatrix(eye, znear, zfar, convention);
 }
 
 void BaseSystem::PerformanceTestEnableCapture(bool bEnable) {
@@ -607,7 +652,8 @@ void BaseSystem::PerformanceTestReportFidelityLevelChange(int nFidelityLevel) {
 
 // Tracking origin stuff
 void BaseSystem::_SetTrackingOrigin(ETrackingUniverseOrigin eOrigin) {
-	origin = eOrigin;
+  STUBBED();
+	/* origin = eOrigin;
 
 	ovrTrackingOrigin ovrOrigin = ovrTrackingOrigin_FloorLevel;
 	if (eOrigin == TrackingUniverseSeated) {
@@ -619,14 +665,14 @@ void BaseSystem::_SetTrackingOrigin(ETrackingUniverseOrigin eOrigin) {
 		ovrOrigin = ovrTrackingOrigin_FloorLevel;
 	}
 
-	OOVR_FAILED_OVR_ABORT(ovr_SetTrackingOriginType(*ovr::session, ovrOrigin));
+	OOVR_FAILED_OVR_ABORT(ovr_SetTrackingOriginType(*ovr::session, ovrOrigin)); */
 }
 
 ETrackingUniverseOrigin BaseSystem::_GetTrackingOrigin() {
 	return origin;
 }
 
-HmdMatrix34_t BaseSystem::_PoseToTrackingSpace(ETrackingUniverseOrigin toOrigin, ovrPosef pose) {
+/* HmdMatrix34_t BaseSystem::_PoseToTrackingSpace(ETrackingUniverseOrigin toOrigin, ovrPosef pose) {
 	// Standard path, most games only use the origin they have selected
 	if (toOrigin == origin && !usingDualOriginMode) {
 		goto result;
@@ -657,22 +703,24 @@ result:
 	HmdMatrix34_t result;
 	O2S_om34(hmdTransform, result);
 	return result;
-}
+} */
 
 ETrackingUniverseOrigin BaseSystem::_GetRenderTrackingOrigin() {
 	return usingDualOriginMode ? TrackingUniverseStanding : origin;
 }
 
 void BaseSystem::_ResetFakeSeatedHeight() {
-	ovrTrackingState state = ovr_GetTrackingState(*ovr::session, ovr_GetTimeInSeconds(), false);
+  STUBBED();
+	/* ovrTrackingState state = ovr_GetTrackingState(*ovr::session, ovr_GetTimeInSeconds(), false);
 
-	fakeOriginHeight = state.HeadPose.ThePose.Position.y;
+	fakeOriginHeight = state.HeadPose.ThePose.Position.y; */
 }
 
 void BaseSystem::ResetSeatedZeroPose() {
-	// TODO should this only work when seated or whatever?
+  STUBBED();
+	/* // TODO should this only work when seated or whatever?
 	ovr_RecenterTrackingOrigin(*ovr::session);
 
 	if (usingDualOriginMode)
-		_ResetFakeSeatedHeight();
+		_ResetFakeSeatedHeight(); */
 }

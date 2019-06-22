@@ -1,14 +1,15 @@
 #include "stdafx.h"
 #include "OCBaseSystem.h"
 
-#include "libovr_wrapper.h"
-#include "OVR_CAPI.h"
+// #include "libovr_wrapper.h"
+// #include "OVR_CAPI.h"
 
 #include "ISystem_001.h"
 using EVRExtendedButtonId = ocapi::IVROCSystem_001::EVRExtendedButtonId;
 
 uint64_t OCBaseSystem::GetExtendedButtonStatus() {
-	uint64_t val = 0;
+  return 0;
+	/* uint64_t val = 0;
 
 	ovrInputState inputState;
 	ovrResult result = ovr_GetInputState(*ovr::session, ovrControllerType_Touch, &inputState);
@@ -23,5 +24,5 @@ uint64_t OCBaseSystem::GetExtendedButtonStatus() {
 		val |= vr::ButtonMaskFromId((vr::EVRButtonId) EVRExtendedButtonId::k_EButton_OVRMenu);
 	}
 
-	return val;
+	return val; */
 }

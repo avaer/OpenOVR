@@ -2,7 +2,7 @@
 #define BASE_IMPL
 #include "BaseChaperone.h"
 
-#include "Drivers/Backend.h"
+// #include "Drivers/Backend.h"
 
 #include <vector>
 
@@ -58,14 +58,17 @@ void BaseChaperone::GetBoundsColor(HmdColor_t *pOutputColorArray, int nNumOutput
 	STUBBED();
 }
 bool BaseChaperone::AreBoundsVisible() {
-	return BackendManager::Instance().AreBoundsVisible();
+  STUBBED();
+	// return BackendManager::Instance().AreBoundsVisible();
 }
 void BaseChaperone::ForceBoundsVisible(bool bForce) {
-	return BackendManager::Instance().ForceBoundsVisible(bForce);
+  STUBBED();
+	// return BackendManager::Instance().ForceBoundsVisible(bForce);
 }
 
 bool BaseChaperone::GetMinMaxPoints(vr::HmdVector3_t &minPoint, vr::HmdVector3_t &maxPoint) {
-	int count;
+  STUBBED();
+	/* int count;
 	bool success = BackendManager::Instance().GetPlayAreaPoints(nullptr, &count);
 
 	if(!success)
@@ -90,5 +93,5 @@ bool BaseChaperone::GetMinMaxPoints(vr::HmdVector3_t &minPoint, vr::HmdVector3_t
 		}
 	}
 
-	return true;
+	return true; */
 }
